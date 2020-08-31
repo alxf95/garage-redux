@@ -1,23 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 import reduxPromise from 'redux-promise';
 import logger from 'redux-logger';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import App from './components/App';
+import carsReducer from './reducers/carsReducer';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const garageName =
+  prompt('What is your garage?') ||
+  `garage${Math.floor(10 + Math.random() * 90)}`;
+
+const initialState = {
+  garage: garageName,
+  cars: [],
+};
 
 const reducers = combineReducers({
-  // key: reducer
+  garage: (state = null) => state,
+  cars: carsReducer,
 });
 
-const middlewares = applyMiddleware(reduxPromise, logger);
+const middlewares = composeEnhancers(
+  applyMiddleware(reduxPromise, thunk, logger)
+);
 
 // render an instance of the component in the DOM
 ReactDOM.render(
-  <Provider store={createStore(reducers, {}, middlewares)}>
-    <BrowserRouter>
-      <Switch>TODO</Switch>
-    </BrowserRouter>
+  <Provider store={createStore(reducers, initialState, middlewares)}>
+    <App />
   </Provider>,
   document.getElementById('root')
 );
