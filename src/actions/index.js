@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const FETCH_CARS = 'FETCH_CARS';
+export const CREATE_CAR = 'CREATE_CAR';
 
 // const updateCarsWithUrl = cars => {
 //   cars.forEach(async car => {
@@ -19,8 +20,17 @@ export const FETCH_CARS = 'FETCH_CARS';
 //   return cars;
 // };
 
-export const createCar = (body, callback) => {
-  console.log(body, callback);
+export const createCar = async (body, garage, callback) => {
+  const promise = await axios({
+    method: 'post',
+    url: `https://wagon-garage-api.herokuapp.com/${garage}/cars`,
+    data: body,
+  }).then(callback);
+
+  return {
+    type: CREATE_CAR,
+    payload: promise.data,
+  };
 };
 
 export const fetchCars = async garage => {

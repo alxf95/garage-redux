@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import CarsIndex from '../containers/CarsIndex';
 import CarsNew from '../containers/CarsNew';
 
+import '../app.css';
+
 const App = () => {
   return (
     <div className="ui container">
