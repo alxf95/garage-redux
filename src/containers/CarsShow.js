@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { fetchCar } from '../actions';
+import { fetchCar, deleteCar } from '../actions';
 
 class CarsShow extends Component {
   componentDidMount = () => {
     if (!this.props.car) {
       this.props.fetchCar(this.props.match.params.id);
     }
+  };
+
+  handleClick = () => {
+    this.props.deleteCar(this.props.match.params.id);
   };
 
   render() {
@@ -44,6 +48,11 @@ class CarsShow extends Component {
             </div>
           </div>
         </div>
+        <div>
+          <Link to="/" onClick={this.handleClick}>
+            Delete
+          </Link>
+        </div>
         <Link to="/">Back</Link>
       </div>
     );
@@ -59,4 +68,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchCar })(CarsShow);
+export default connect(mapStateToProps, { fetchCar, deleteCar })(CarsShow);

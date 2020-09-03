@@ -12,15 +12,15 @@ const caps = string => {
 };
 
 const noSpecialChars = string => {
-  const regex = /[ `!@#£$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+  const regex = /[ `!@#£$%^&*()_+\-=[]{};':"\\|,.<>\/?~]/;
   return regex.test(string) ? "Can't contain special characters" : undefined;
 };
 
 class CarsNew extends Component {
   onSubmit = values => {
-    this.props.createCar(values, this.props.garage, post => {
+    this.props.createCar(values, this.props.garage, car => {
       this.props.history.push('/');
-      return post;
+      return car;
     });
   };
 
