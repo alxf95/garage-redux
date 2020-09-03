@@ -12,14 +12,34 @@ class CarsIndex extends Component {
   renderCars = () => {
     if (this.props.cars.length > 0) {
       return this.props.cars.map(car => {
-        const { model, brand, owner, plate } = car;
+        const { model, brand, owner } = car;
         return (
-          <div key={model}>
-            <h3>{brand}</h3>
-            <p>{model}</p>
-            <p>{owner}</p>
-            <p>{plate}</p>
-          </div>
+          <Link
+            className="item cars-index-car"
+            key={model}
+            to={`/cars/${car.id}`}
+          >
+            <div className="image">
+              <img
+                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ytimg.com%2Fvi%2FmoFQhZ0_-TU%2Fmaxresdefault.jpg&f=1&nofb=1"
+                alt="car"
+              />
+            </div>
+            <div className="content">
+              <div className="margin-top-15">
+                <h3 className="header">
+                  {brand} -{' '}
+                  <span style={{ fontWeight: 'lighter' }}>{model}</span>
+                </h3>
+                <div className="description">
+                  <p>
+                    <span style={{ fontWeight: 'bold' }}>Owner: </span>
+                    {owner}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Link>
         );
       });
     }
@@ -28,9 +48,10 @@ class CarsIndex extends Component {
 
   render() {
     return (
-      <div>
-        <div>{this.renderCars()}</div>
-        <Link to={`/cars/new`}>Add Car to {this.props.garage}'s Garage</Link>
+      <div className="margin-top-15">
+        <h2>{this.props.garage}'s Garage</h2>
+        <Link to="/cars/new">Add Car</Link>
+        <div className="ui items">{this.renderCars()}</div>
       </div>
     );
   }
