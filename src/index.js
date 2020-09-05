@@ -13,9 +13,8 @@ import carsReducer from './reducers/carsReducer';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const garageName =
-  // prompt('What is your garage?') ||
-  // `garage${Math.floor(10 + Math.random() * 90)}`;
-  'Alex';
+  prompt('What is your garage?') ||
+  `garage${Math.floor(10 + Math.random() * 90)}`;
 
 const initialState = {
   garage: garageName,
